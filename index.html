@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="cosmic">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Todisoa | Carte de Contact Numérique - MID (DSID)</title>
+    <meta name="description" content="Carte de visite et coordonnées officielles de Todisoa - Stagiaire MID (DSID), Antananarivo Madagascar.">
+    <link rel="icon" href="icone.jpg" type="image/jpeg">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+    
+    <!-- Bootstrap 5 & FontAwesome -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Background Animated Stars & Mesh Glow -->
+    <div class="bg-stars" aria-hidden="true"></div>
+    <div class="bg-glow bg-glow-1" aria-hidden="true"></div>
+    <div class="bg-glow bg-glow-2" aria-hidden="true"></div>
+
+    <!-- Top Navigation Bar -->
+    <nav class="navbar-custom">
+        <div class="container-fluid d-flex justify-content-between align-items-center max-w-content">
+            <div class="brand-tag">
+                <span class="pulse-dot"></span>
+                <span class="brand-text">MID / DSID Madagascar</span>
+            </div>
+            <div class="d-flex align-items-center gap-2">
+                <!-- Theme Toggle Button -->
+                <button id="themeToggleBtn" class="nav-btn" title="Changer de thème (Cosmic / Sombre / Clair)" aria-label="Changer le thème">
+                    <i class="fas fa-moon" id="themeIcon"></i>
+                </button>
+                <!-- Language Toggle Button -->
+                <button id="langToggleBtn" class="nav-btn lang-btn" title="Changer de langue (FR / MG)" aria-label="Changer de langue">
+                    <span id="langLabel" class="fw-bold">FR</span>
+                </button>
+                <!-- Share Button in Nav -->
+                <button id="navShareBtn" class="nav-btn share-nav-btn" title="Partager" aria-label="Partager le contact">
+                    <i class="fas fa-share-nodes"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Container -->
+    <main class="main-wrapper">
+        <div class="content-card">
+            
+            <!-- Header / Profile Section -->
+            <header class="profile-header text-center">
+                <div class="avatar-container">
+                    <div class="avatar-glow-ring"></div>
+                    <img src="photo.png" alt="Photo de profil de Todisoa" class="avatar-img" onerror="this.src='icone.jpg'">
+                    <div class="status-indicator" title="Disponible pour opportunités et collaborations">
+                        <span class="status-dot"></span>
+                    </div>
+                </div>
+
+                <div class="profile-info mt-3">
+                    <div class="badge-role mb-2">
+                        <i class="fas fa-id-badge me-1"></i>
+                        <span data-i18n="badgeRole">Stagiaire MID (DSID)</span>
+                    </div>
+                    <h1 class="profile-name">Todisoa</h1>
+                    <div class="profile-location-wrapper mt-2">
+                        <button id="openMapModalBtn" class="location-badge-btn" title="Voir l'emplacement du lieu de travail sur la carte" aria-label="Voir la carte du lieu de travail">
+                            <i class="fas fa-location-dot text-danger pulse-loc me-1"></i>
+                            <span data-i18n="locBadge">Antananarivo, Madagascar &bull; <strong>MID Anosy</strong></span>
+                            <i class="fas fa-map-marked-alt ms-1 text-primary-light"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Primary Action Buttons -->
+                <div class="hero-actions-grid mt-4">
+                    <button id="downloadVcardBtn" class="btn-action btn-primary-custom" title="Ajouter aux contacts du téléphone">
+                        <i class="fas fa-user-plus"></i>
+                        <span data-i18n="saveContactBtn">Enregistrer le contact</span>
+                    </button>
+                    <button id="openShareModalBtn" class="btn-action btn-secondary-custom" title="Afficher le QR code et options de partage">
+                        <i class="fas fa-qrcode"></i>
+                        <span data-i18n="qrShareBtn">QR Code & Partage</span>
+                    </button>
+                </div>
+            </header>
+
+            <!-- Quick Access Pill Buttons (One-Tap Communication) -->
+            <section class="quick-connect-bar" aria-label="Raccourcis de communication">
+                <a href="tel:+261388767355" class="quick-pill quick-call" title="Appeler maintenant">
+                    <i class="fas fa-phone"></i>
+                    <span data-i18n="quickCall">Appel</span>
+                </a>
+                <a href="https://wa.me/261378901866?text=Bonjour%20Todisoa,%20je%20vous%20contacte%20depuis%20votre%20carte%20de%20contact." target="_blank" rel="noopener noreferrer" class="quick-pill quick-wa" title="Discuter sur WhatsApp">
+                    <i class="fab fa-whatsapp"></i>
+                    <span>WhatsApp</span>
+                </a>
+                <a href="mailto:todisoandrianjakamanana@gmail.com?subject=Contact%20professionnel%20Todisoa" class="quick-pill quick-mail" title="Envoyer un e-mail">
+                    <i class="fas fa-envelope"></i>
+                    <span data-i18n="quickEmail">E-mail</span>
+                </a>
+                <a href="https://discord.com/users/1423545490842193980" target="_blank" rel="noopener noreferrer" class="quick-pill quick-discord" title="Profil Discord">
+                    <i class="fab fa-discord"></i>
+                    <span>Discord</span>
+                </a>
+                <a href="sms:+261388767355" class="quick-pill quick-sms" title="Envoyer un SMS">
+                    <i class="fas fa-comment-sms"></i>
+                    <span>SMS</span>
+                </a>
+            </section>
+
+            <!-- Interactive Search / Filter Bar -->
+            <div class="category-tabs" role="tablist">
+                <button class="tab-btn active" data-filter="all">
+                    <i class="fas fa-border-all me-1"></i> <span data-i18n="tabAll">Tous</span>
+                </button>
+                <button class="tab-btn" data-filter="phone">
+                    <i class="fas fa-phone me-1"></i> <span data-i18n="tabPhone">Téléphones</span>
+                </button>
+                <button class="tab-btn" data-filter="messaging">
+                    <i class="fab fa-whatsapp me-1"></i> <span data-i18n="tabMessaging">Messagerie</span>
+                </button>
+                <button class="tab-btn" data-filter="email">
+                    <i class="fas fa-envelope me-1"></i> <span data-i18n="tabEmail">E-mails</span>
+                </button>
+                <button class="tab-btn" data-filter="social">
+                    <i class="fab fa-facebook me-1"></i> <span data-i18n="tabSocial">Réseaux</span>
+                </button>
+            </div>
+
+            <!-- Contacts Cards Grid -->
+            <div class="cards-grid mt-4" id="contactsGrid">
+                
+                <!-- Card 1: Téléphones -->
+                <article class="contact-card card-phone" data-category="phone">
+                    <div class="card-icon-header">
+                        <div class="card-badge bg-blue">
+                            <i class="fas fa-phone-volume"></i>
+                        </div>
+                        <div class="card-title-group">
+                            <h2 class="card-title" data-i18n="titlePhone">Numéros de Téléphone</h2>
+                            <span class="card-sub" data-i18n="subPhone">Appel direct & SMS</span>
+                        </div>
+                    </div>
+                    <div class="card-content-list">
+                        <!-- Numéro 1 -->
+                        <div class="contact-entry">
+                            <div class="entry-meta">
+                                <span class="operator-badge telma">Principal</span>
+                                <a href="tel:+261388767355" class="entry-value number-font">+261 38 87 673 55</a>
+                            </div>
+                            <div class="entry-actions">
+                                <a href="tel:+261388767355" class="btn-icon" title="Appeler ce numéro" aria-label="Appeler +261 38 87 673 55">
+                                    <i class="fas fa-phone"></i>
+                                </a>
+                                <a href="sms:+261388767355" class="btn-icon" title="Envoyer un SMS" aria-label="Envoyer un SMS à +261 38 87 673 55">
+                                    <i class="fas fa-comment-sms"></i>
+                                </a>
+                                <button class="btn-icon copy-btn" data-text="+261 38 87 673 55" title="Copier le numéro" aria-label="Copier le numéro">
+                                    <i class="fas fa-copy"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Numéro 2 -->
+                        <div class="contact-entry">
+                            <div class="entry-meta">
+                                <span class="operator-badge orange">Secondaire</span>
+                                <a href="tel:+261330964198" class="entry-value number-font">+261 33 09 641 98</a>
+                            </div>
+                            <div class="entry-actions">
+                                <a href="tel:+261330964198" class="btn-icon" title="Appeler ce numéro" aria-label="Appeler +261 33 09 641 98">
+                                    <i class="fas fa-phone"></i>
+                                </a>
+                                <a href="sms:+261330964198" class="btn-icon" title="Envoyer un SMS" aria-label="Envoyer un SMS à +261 33 09 641 98">
+                                    <i class="fas fa-comment-sms"></i>
+                                </a>
+                                <button class="btn-icon copy-btn" data-text="+261 33 09 641 98" title="Copier le numéro" aria-label="Copier le numéro">
+                                    <i class="fas fa-copy"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Card 2: WhatsApp -->
+                <article class="contact-card card-whatsapp" data-category="messaging">
+                    <div class="card-icon-header">
+                        <div class="card-badge bg-green">
+                            <i class="fab fa-whatsapp"></i>
+                        </div>
+                        <div class="card-title-group">
+                            <h2 class="card-title">WhatsApp</h2>
+                            <span class="card-sub" data-i18n="subWhatsapp">Message instantané & vocal</span>
+                        </div>
+                    </div>
+                    <div class="card-content-list">
+                        <div class="contact-entry">
+                            <div class="entry-meta">
+                                <span class="operator-badge wa-badge">En ligne</span>
+                                <a href="https://wa.me/261378901866?text=Bonjour%20Todisoa,%20je%20vous%20contacte%20via%20votre%20carte%20numérique." target="_blank" rel="noopener noreferrer" class="entry-value number-font">+261 37 89 018 66</a>
+                            </div>
+                            <div class="entry-actions">
+                                <a href="https://wa.me/261378901866?text=Bonjour%20Todisoa,%20je%20vous%20contacte%20via%20votre%20carte%20numérique." target="_blank" rel="noopener noreferrer" class="btn-icon wa-action" title="Démarrer la discussion" aria-label="Démarrer la discussion WhatsApp">
+                                    <i class="fab fa-whatsapp"></i>
+                                </a>
+                                <button class="btn-icon copy-btn" data-text="+261 37 89 018 66" title="Copier le numéro WhatsApp" aria-label="Copier le numéro WhatsApp">
+                                    <i class="fas fa-copy"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Quick Message Preset Trigger -->
+                    <div class="card-footer-action">
+                        <button class="btn-inline-link open-quick-msg" data-recipient="wa">
+                            <i class="fas fa-paper-plane me-1"></i> <span data-i18n="prepareMsg">Rédiger un message rapide</span>
+                        </button>
+                    </div>
+                </article>
+
+                <!-- Card 3: E-mails -->
+                <article class="contact-card card-email" data-category="email">
+                    <div class="card-icon-header">
+                        <div class="card-badge bg-cyan">
+                            <i class="fas fa-envelope-open-text"></i>
+                        </div>
+                        <div class="card-title-group">
+                            <h2 class="card-title" data-i18n="titleEmail">Adresses E-mails</h2>
+                            <span class="card-sub" data-i18n="subEmail">Pour vos correspondances professionnelles</span>
+                        </div>
+                    </div>
+                    <div class="card-content-list">
+                        <!-- Email 1 -->
+                        <div class="contact-entry">
+                            <div class="entry-meta">
+                                <span class="operator-badge mail-badge">Principal</span>
+                                <a href="mailto:todisoandrianjakamanana@gmail.com" class="entry-value email-font">todisoandrianjakamanana@gmail.com</a>
+                            </div>
+                            <div class="entry-actions">
+                                <a href="mailto:todisoandrianjakamanana@gmail.com?subject=Contact%20Todisoa" class="btn-icon" title="Envoyer un e-mail" aria-label="Envoyer un e-mail à todisoandrianjakamanana@gmail.com">
+                                    <i class="fas fa-paper-plane"></i>
+                                </a>
+                                <button class="btn-icon copy-btn" data-text="todisoandrianjakamanana@gmail.com" title="Copier l'adresse e-mail" aria-label="Copier l'adresse e-mail">
+                                    <i class="fas fa-copy"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Email 2 -->
+                        <div class="contact-entry">
+                            <div class="entry-meta">
+                                <span class="operator-badge mail-badge">Secondaire</span>
+                                <a href="mailto:gabisangelo52@gmail.com" class="entry-value email-font">gabisangelo52@gmail.com</a>
+                            </div>
+                            <div class="entry-actions">
+                                <a href="mailto:gabisangelo52@gmail.com?subject=Contact%20Todisoa" class="btn-icon" title="Envoyer un e-mail" aria-label="Envoyer un e-mail à gabisangelo52@gmail.com">
+                                    <i class="fas fa-paper-plane"></i>
+                                </a>
+                                <button class="btn-icon copy-btn" data-text="gabisangelo52@gmail.com" title="Copier l'adresse e-mail" aria-label="Copier l'adresse e-mail">
+                                    <i class="fas fa-copy"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Card 4: Réseaux Sociaux (Facebook) -->
+                <article class="contact-card card-facebook" data-category="social">
+                    <div class="card-icon-header">
+                        <div class="card-badge bg-facebook">
+                            <i class="fab fa-facebook-f"></i>
+                        </div>
+                        <div class="card-title-group">
+                            <h2 class="card-title">Facebook</h2>
+                            <span class="card-sub" data-i18n="subSocial">Profils & Comptes</span>
+                        </div>
+                    </div>
+                    <div class="card-content-list">
+                        <!-- Profil 1 -->
+                        <div class="contact-entry">
+                            <div class="entry-meta">
+                                <span class="operator-badge fb-badge">Profil 1</span>
+                                <span class="entry-value">Gabis Todisoa Angelo</span>
+                            </div>
+                            <div class="entry-actions">
+                                <a href="https://www.facebook.com/search/top?q=Gabis%20Todisoa%20Angelo" target="_blank" rel="noopener noreferrer" class="btn-icon" title="Rechercher sur Facebook" aria-label="Rechercher Gabis Todisoa Angelo">
+                                    <i class="fas fa-arrow-up-right-from-square"></i>
+                                </a>
+                                <button class="btn-icon copy-btn" data-text="Gabis Todisoa Angelo" title="Copier le nom" aria-label="Copier le nom">
+                                    <i class="fas fa-copy"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Profil 2 -->
+                        <div class="contact-entry">
+                            <div class="entry-meta">
+                                <span class="operator-badge fb-badge">Profil 2</span>
+                                <span class="entry-value">Todisoa AMTM</span>
+                            </div>
+                            <div class="entry-actions">
+                                <a href="https://www.facebook.com/search/top?q=Todisoa%20AMTM" target="_blank" rel="noopener noreferrer" class="btn-icon" title="Rechercher sur Facebook" aria-label="Rechercher Todisoa AMTM">
+                                    <i class="fas fa-arrow-up-right-from-square"></i>
+                                </a>
+                                <button class="btn-icon copy-btn" data-text="Todisoa AMTM" title="Copier le nom" aria-label="Copier le nom">
+                                    <i class="fas fa-copy"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Card 5: Discord -->
+                <article class="contact-card card-discord" data-category="messaging">
+                    <div class="card-icon-header">
+                        <div class="card-badge bg-discord">
+                            <i class="fab fa-discord"></i>
+                        </div>
+                        <div class="card-title-group">
+                            <h2 class="card-title">Discord</h2>
+                            <span class="card-sub" data-i18n="subDiscord">Identifiant & profil</span>
+                        </div>
+                    </div>
+                    <div class="card-content-list">
+                        <div class="contact-entry">
+                            <div class="entry-meta">
+                                <span class="operator-badge discord-badge">User ID</span>
+                                <a href="https://discord.com/users/1423545490842193980" target="_blank" rel="noopener noreferrer" class="entry-value discord-tag fw-bold">todisoa90</a>
+                            </div>
+                            <div class="entry-actions">
+                                <a href="https://discord.com/users/1423545490842193980" target="_blank" rel="noopener noreferrer" class="btn-icon" title="Ouvrir le profil Discord" aria-label="Ouvrir le profil Discord">
+                                    <i class="fas fa-arrow-up-right-from-square"></i>
+                                </a>
+                                <button class="btn-icon copy-btn" data-text="todisoa90" title="Copier l'identifiant Discord" aria-label="Copier l'identifiant Discord">
+                                    <i class="fas fa-copy"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+            </div>
+
+            <!-- Quick Direct Message Generator Accordion -->
+            <section class="quick-msg-section mt-5" id="quickMsgBox">
+                <div class="section-banner">
+                    <div class="d-flex align-items-center gap-2">
+                        <i class="fas fa-bolt text-warning fs-4"></i>
+                        <div>
+                            <h3 class="mb-0 fs-5 fw-bold" data-i18n="quickMsgTitle">Envoyer un message en 1 clic</h3>
+                            <p class="text-muted small mb-0" data-i18n="quickMsgSub">Préparez votre texte et choisissez l'envoi par WhatsApp ou E-mail</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="msg-composer mt-3">
+                    <div class="mb-3">
+                        <label for="msgSenderName" class="form-label small fw-semibold" data-i18n="msgNameLabel">Votre nom ou entité :</label>
+                        <input type="text" id="msgSenderName" class="form-control custom-input" placeholder="Ex : Randria - Entreprise / Partenaire">
+                    </div>
+                    <div class="mb-3">
+                        <label for="customMsgText" class="form-label small fw-semibold" data-i18n="msgTextLabel">Votre message :</label>
+                        <textarea id="customMsgText" class="form-control custom-input" rows="3" placeholder="Bonjour Todisoa, je souhaiterais échanger avec vous concernant..."></textarea>
+                    </div>
+                    <div class="d-flex flex-wrap gap-2">
+                        <button id="sendViaWhatsAppBtn" class="btn btn-wa-send flex-grow-1">
+                            <i class="fab fa-whatsapp me-2"></i> <span data-i18n="sendViaWa">Envoyer via WhatsApp</span>
+                        </button>
+                        <button id="sendViaEmailBtn" class="btn btn-mail-send flex-grow-1">
+                            <i class="fas fa-envelope me-2"></i> <span data-i18n="sendViaMail">Envoyer via E-mail</span>
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Thank you & Affiliation Note -->
+            <section class="appreciation-section text-center my-5">
+                <div class="thank-you-box">
+                    <i class="fas fa-handshake text-primary fs-3 mb-2"></i>
+                    <p class="lead-text mb-2" data-i18n="thankYouText">
+                        Je vous remercie sincèrement pour l'intérêt porté à mon profil et à mes activités.
+                    </p>
+                    <p class="sub-text text-muted mb-0" data-i18n="thankYouSub">
+                        Restant à votre entière disposition pour toute collaboration, opportunité professionnelle ou demande d'information.
+                    </p>
+                </div>
+            </section>
+
+            <!-- Footer -->
+            <footer class="app-footer text-center">
+                <p class="footer-copy mb-1">&copy; 2026 <strong>Todisoa</strong>. Ministère de l'Intérieur et de la Décentralisation (DSID).</p>
+                <p class="footer-meta small text-muted">Antananarivo, Madagascar &bull; Carte de visite numérique interactive</p>
+            </footer>
+
+        </div>
+    </main>
+
+    <!-- ==============================================
+         MODAL: QR Code & Share Hub
+         ============================================== -->
+    <div id="qrShareModal" class="custom-modal-overlay" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="qrModalTitle">
+        <div class="modal-card">
+            <div class="modal-head">
+                <div>
+                    <h2 id="qrModalTitle" class="modal-title" data-i18n="qrModalTitle">Partager la carte</h2>
+                    <p class="modal-sub" data-i18n="qrModalSub">Scannez ce QR Code avec votre téléphone pour ouvrir ou enregistrer le contact.</p>
+                </div>
+                <button id="closeQrModalBtn" class="modal-close" type="button" aria-label="Fermer la fenêtre">&times;</button>
+            </div>
+
+            <!-- QR Code Render Canvas -->
+            <div class="qr-preview-box text-center my-3">
+                <div id="modalQrCode" class="qr-canvas-container" aria-label="QR Code interactif"></div>
+                <p class="qr-hint small mt-2 mb-0" data-i18n="qrScanHint">Scannez avec l'appareil photo de votre smartphone</p>
+            </div>
+
+            <!-- Share URL Input & Copy -->
+            <div class="share-input-group mb-3">
+                <input type="text" id="shareUrlInput" class="form-control custom-input" readonly value="">
+                <button id="copyShareUrlBtn" class="btn btn-primary-custom" title="Copier l'URL">
+                    <i class="fas fa-copy me-1"></i> <span data-i18n="btnCopy">Copier</span>
+                </button>
+            </div>
+
+            <div class="modal-actions-grid">
+                <button id="nativeShareBtn" class="btn btn-action-modal">
+                    <i class="fas fa-share-nodes text-primary"></i> <span data-i18n="nativeShare">Partager l'application</span>
+                </button>
+                <button id="downloadQrImageBtn" class="btn btn-action-modal">
+                    <i class="fas fa-download text-success"></i> <span data-i18n="downloadQr">Télécharger QR (PNG)</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==============================================
+         MODAL: Numéro de téléphone (Lead / Stay in touch)
+         ============================================== -->
+    <div id="contactPopupOverlay" class="custom-modal-overlay" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="popupTitle">
+        <div class="modal-card">
+            <div class="modal-head">
+                <div>
+                    <h2 id="popupTitle" class="modal-title" data-i18n="stayInTouchTitle">Rester en contact</h2>
+                    <p class="modal-sub" data-i18n="stayInTouchSub">Laissez votre numéro si vous souhaitez que Todisoa vous recontacte facilement.</p>
+                </div>
+                <button id="popupCloseBtn" class="modal-close" type="button" aria-label="Fermer la fenêtre">&times;</button>
+            </div>
+
+            <div class="modal-body-custom">
+                <label for="popupPhoneInput" class="form-label small fw-semibold" data-i18n="popupPhoneLabel">Votre numéro de téléphone :</label>
+                <input id="popupPhoneInput" type="tel" inputmode="numeric" placeholder="Ex : 038 87 673 55 ou +261..." class="form-control custom-input mb-2">
+                <p id="popupPhoneError" class="popup-error text-danger small mb-3" aria-live="polite"></p>
+
+                <div class="d-flex gap-2">
+                    <button id="popupSubmitBtn" type="button" class="btn btn-primary-custom flex-grow-1" data-i18n="popupSubmit">Enregistrer</button>
+                    <button id="popupSkipBtn" type="button" class="btn btn-secondary-custom" data-i18n="popupSkip">Plus tard</button>
+                </div>
+                <p class="popup-note small text-muted text-center mt-2 mb-0" data-i18n="popupNote">Votre préférence sera mémorisée sur cet appareil.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==============================================
+         MODAL: Interactive Map / Lieu de travail (MID Anosy)
+         ============================================== -->
+    <div id="mapModal" class="custom-modal-overlay" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="mapModalTitle">
+        <div class="modal-card modal-card-lg">
+            <div class="modal-head">
+                <div>
+                    <h2 id="mapModalTitle" class="modal-title" data-i18n="mapModalTitle">Toeram-piasana / Lieu de travail</h2>
+                    <p class="modal-sub" data-i18n="mapModalSub">Ministère de l'Intérieur et de la Décentralisation (DSID) - Anosy, Antananarivo</p>
+                </div>
+                <button id="closeMapModalBtn" class="modal-close" type="button" aria-label="Fermer la fenêtre">&times;</button>
+            </div>
+
+            <div class="map-embed-wrapper my-3">
+                <iframe 
+                    id="osmMapIframe"
+                    title="Carte Ministère de l'Intérieur et de la Décentralisation Madagascar"
+                    src="https://www.openstreetmap.org/export/embed.html?bbox=47.514%2C-18.922%2C47.534%2C-18.906&amp;layer=mapnik&amp;marker=-18.9142%2C47.5255" 
+                    loading="lazy" 
+                    allowfullscreen>
+                </iframe>
+            </div>
+
+            <div class="location-details-box mb-3">
+                <div class="d-flex align-items-start gap-2">
+                    <i class="fas fa-building-columns text-primary fs-5 mt-1"></i>
+                    <div class="small">
+                        <strong class="text-primary-light">MID Madagascar &bull; DSID</strong><br>
+                        <span class="text-muted">Bâtiment Central / Annexe, Anosy, Antananarivo 101, Madagascar</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-actions-grid">
+                <a href="https://www.google.com/maps/search/?api=1&query=Ministere+de+l+Interieur+Anosy+Antananarivo+Madagascar" target="_blank" rel="noopener noreferrer" class="btn btn-primary-custom text-center text-decoration-none d-flex align-items-center justify-content-center gap-2">
+                    <i class="fas fa-route"></i> <span data-i18n="openInGoogleMaps">Sokafy amin'ny Google Maps</span>
+                </a>
+                <button id="closeMapModalBtn2" type="button" class="btn btn-secondary-custom d-flex align-items-center justify-content-center">
+                    <span data-i18n="btnClose">Hakatona / Fermer</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notification Popup -->
+    <div id="toastNotification" class="toast-popup" role="alert" aria-live="assertive">
+        <div class="toast-content">
+            <i class="fas fa-circle-check toast-icon" id="toastIcon"></i>
+            <span id="toastMessage">Action effectuée avec succès !</span>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
