@@ -40,11 +40,18 @@ app.use((req, res, next) => {
   next();
 });
 
-// Serve static assets with security checks
+// Serve static assets with no-cache for instant live updates
+app.use((req, res, next) => {
+  res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
+  res.setHeader('Pragma', 'no-cache');
+  res.setHeader('Expires', '0');
+  next();
+});
+
 app.use(express.static(__dirname, {
   dotfiles: 'ignore',
-  etag: true,
-  maxAge: '1h'
+  etag: false,
+  maxAge: 0
 }));
 
 // Fallback to index.html with safe path resolution
