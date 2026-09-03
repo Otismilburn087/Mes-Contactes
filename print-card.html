@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Todisoa - Carte de Visite Imprimable</title>
+    <link rel="icon" href="icone.jpg" type="image/jpeg">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #f0f0f0;
+            font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            padding: 20px;
+            color: #333;
+        }
+
+        .print-controls {
+            max-width: 1000px;
+            margin: 0 auto 30px;
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+            flex-wrap: wrap;
+            background: white;
+            padding: 16px;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .print-btn {
+            background: linear-gradient(135deg, #3b82f6, #2563eb);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+            font-size: 0.95rem;
+        }
+
+        .print-btn:hover {
+            background: linear-gradient(135deg, #2563eb, #1d4ed8);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.4);
+        }
+
+        .print-btn.secondary {
+            background: #6b7280;
+        }
+
+        .print-btn.secondary:hover {
+            background: #4b5563;
+        }
+
+        .format-selector {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+
+        .format-selector label {
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-right: 8px;
+        }
+
+        .format-selector input[type="radio"] {
+            margin-right: 4px;
+        }
+
+        .format-option {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .cards-container {
+            display: grid;
+            gap: 30px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        /* Standard Business Card: 90x50mm */
+        .business-card {
+            width: 90mm;
+            height: 50mm;
+            background: linear-gradient(135deg, #0a0d1a 0%, #1a1d3a 100%);
+            border: 1px solid rgba(100, 140, 255, 0.3);
+            border-radius: 3mm;
+            padding: 4mm;
+            display: flex;
+            align-items: center;
+            gap: 6mm;
+            color: #f3f6fc;
+            page-break-after: always;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            font-size: 9pt;
+            font-family: 'Outfit', sans-serif;
+            position: relative;
+            overflow: hidden;
+            page-break-inside: avoid;
+        }
+
+        .business-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, rgba(59, 130, 246, 0.15) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .card-photo {
+            width: 38mm;
+            height: 38mm;
+            flex-shrink: 0;
+            border-radius: 2mm;
+            background: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.2);
+            position: relative;
+            z-index: 1;
+        }
+
+        .card-photo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .card-photo-placeholder {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #e0e7ff;
+            font-size: 20pt;
+            color: #818cf8;
+        }
+
+        .card-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .card-name {
+            font-family: 'Outfit', sans-serif;
+            font-size: 18pt;
+            font-weight: 800;
+            margin-bottom: 2mm;
+            letter-spacing: -0.5px;
+        }
+
+        .card-title {
+            font-size: 8pt;
+            color: #a0aec0;
+            margin-bottom: 3mm;
+            font-weight: 600;
+        }
+
+        .card-contact {
+            font-size: 7pt;
+            line-height: 1.5;
+            color: #cbd5e1;
+        }
+
+        .card-contact-item {
+            display: flex;
+            align-items: center;
+            gap: 3mm;
+            margin-bottom: 1mm;
+        }
+
+        .card-contact-icon {
+            width: 4mm;
+            text-align: center;
+            flex-shrink: 0;
+        }
+
+        .card-qr {
+            width: 32mm;
+            height: 32mm;
+            flex-shrink: 0;
+            background: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 1mm;
+            border: 1px solid rgba(255,255,255,0.2);
+            overflow: hidden;
+            position: relative;
+            z-index: 1;
+        }
+
+        .card-qr img,
+        .card-qr canvas {
+            width: 100%;
+            height: 100%;
+            display: block;
+        }
+
+        .card-location {
+            font-size: 6.5pt;
+            color: #94a3b8;
+            margin-top: 2mm;
+            padding-top: 2mm;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+
+        /* Double-sided layout */
+        .cards-double-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10mm;
+            background: white;
+            padding: 10mm;
+            border-radius: 8px;
+            page-break-after: always;
+            page-break-inside: avoid;
+        }
+
+        /* Print Styles */
+        @media print {
+            body {
+                background: white;
+                padding: 0;
+            }
+
+            .print-controls {
+                display: none;
+            }
+
+            .cards-container {
+                gap: 10mm;
+                margin: 0;
+            }
+
+            .business-card {
+                box-shadow: none;
+                margin: 0;
+            }
+
+            .cards-double-row {
+                padding: 0;
+                background: transparent;
+            }
+
+            @page {
+                size: A4;
+                margin: 10mm;
+            }
+        }
+
+        /* Format specific */
+        .cards-landscape .business-card {
+            flex-direction: row;
+        }
+
+        .cards-portrait .business-card {
+            width: 50mm;
+            height: 90mm;
+            flex-direction: column;
+            padding: 3mm;
+        }
+
+        .cards-portrait .card-photo {
+            width: 44mm;
+            height: 44mm;
+        }
+
+        .cards-portrait .card-qr {
+            width: 28mm;
+            height: 28mm;
+        }
+
+        .preview-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(100mm, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        @media screen and (max-width: 768px) {
+            .print-controls {
+                flex-direction: column;
+            }
+
+            .preview-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .business-card {
+                width: 100%;
+                height: auto;
+                min-height: 200px;
+            }
+
+            .cards-portrait .business-card {
+                width: 100%;
+            }
+        }
+
+        .info-message {
+            background: #ecf0f1;
+            border-left: 4px solid #3b82f6;
+            padding: 16px;
+            border-radius: 6px;
+            margin-bottom: 20px;
+            font-size: 0.9rem;
+            color: #2c3e50;
+        }
+
+        .info-message strong {
+            color: #1d4ed8;
+        }
+    </style>
+</head>
+<body>
+    <div class="print-controls">
+        <button class="print-btn" onclick="window.print()">
+            <i class="fas fa-print"></i> Imprimer les cartes
+        </button>
+        
+        <div class="format-selector">
+            <label>Format :</label>
+            <div class="format-option">
+                <input type="radio" id="landscape" name="format" value="landscape" checked>
+                <label for="landscape">Horizontal</label>
+            </div>
+            <div class="format-option">
+                <input type="radio" id="portrait" name="format" value="portrait">
+                <label for="portrait">Vertical</label>
+            </div>
+        </div>
+
+        <button class="print-btn secondary" onclick="generatePDF()">
+            <i class="fas fa-file-pdf"></i> Télécharger PDF
+        </button>
+    </div>
+
+    <div class="info-message">
+        <strong>💡 Conseil :</strong> Pour de meilleurs résultats, sélectionnez votre imprimante, réglez les marges à <strong>0</strong>, et imprimez sur du papier de qualité (blanc brillant pour les cartes). Format standard : 90×50 mm.
+    </div>
+
+    <div id="cardsContainer" class="cards-container cards-landscape">
+        <!-- Cards will be generated here -->
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+
+    <script>
+        // Contact data
+        const contactData = {
+            name: 'Todisoa',
+            title: 'Stagiaire MID (DSID)',
+            organization: 'Ministère de l\'Intérieur et de la Décentralisation',
+            phone: '+261 38 87 673 55',
+            whatsapp: '+261 37 89 018 66',
+            email: 'todisoandrianjakamanana@gmail.com',
+            location: 'Antananarivo, Madagascar • MID Anosy',
+            url: window.location.href.split('?')[0]
+        };
+
+        function generateBusinessCards() {
+            const container = document.getElementById('cardsContainer');
+            container.innerHTML = '';
+
+            for (let i = 0; i < 10; i++) {
+                const card = createBusinessCard(i);
+                container.appendChild(card);
+            }
+        }
+
+        function createBusinessCard(index) {
+            const card = document.createElement('div');
+            card.className = 'business-card';
+
+            const cardHTML = `
+                <div class="card-photo">
+                    <div class="card-photo-placeholder">
+                        <img src="photo.png" alt="Photo de profil" onerror="this.style.display='none'">
+                    </div>
+                </div>
+
+                <div class="card-content">
+                    <div class="card-name">${contactData.name}</div>
+                    <div class="card-title">${contactData.title}</div>
+                    <div class="card-contact">
+                        <div class="card-contact-item">
+                            <i class="fas fa-phone card-contact-icon"></i>
+                            <span>${contactData.phone}</span>
+                        </div>
+                        <div class="card-contact-item">
+                            <i class="fas fa-envelope card-contact-icon"></i>
+                            <span style="font-size: 6pt;">${contactData.email}</span>
+                        </div>
+                        <div class="card-contact-item">
+                            <i class="fas fa-map-marker-alt card-contact-icon"></i>
+                            <span style="font-size: 6pt;">${contactData.location}</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-qr" id="qr-${index}"></div>
+            `;
+
+            card.innerHTML = cardHTML;
+            
+            // Generate QR code for this card
+            setTimeout(() => {
+                const qrContainer = card.querySelector(`#qr-${index}`);
+                if (qrContainer && typeof QRCode === 'function') {
+                    new QRCode(qrContainer, {
+                        text: contactData.url,
+                        width: 200,
+                        height: 200,
+                        colorDark: '#0f172a',
+                        colorLight: '#ffffff',
+                        correctLevel: QRCode.CorrectLevel.H
+                    });
+                }
+            }, 50);
+
+            return card;
+        }
+
+        // Format selector
+        document.querySelectorAll('input[name="format"]').forEach(input => {
+            input.addEventListener('change', (e) => {
+                const container = document.getElementById('cardsContainer');
+                container.classList.remove('cards-landscape', 'cards-portrait');
+                container.classList.add(`cards-${e.target.value}`);
+            });
+        });
+
+        // PDF export
+        function generatePDF() {
+            const element = document.getElementById('cardsContainer');
+            const opt = {
+                margin: 10,
+                filename: 'Todisoa_Cartes_Visite.pdf',
+                image: { type: 'jpeg', quality: 0.98 },
+                html2canvas: { scale: 2, useCORS: true },
+                jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+            };
+
+            html2pdf().set(opt).save().from(element).toCanvas().toImg().toPdf();
+        }
+
+        // Initialize
+        window.addEventListener('load', generateBusinessCards);
+    </script>
+</body>
+</html>
