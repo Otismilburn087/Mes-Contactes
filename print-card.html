@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Todisoa - Carte de visite recto-verso</title>
+    <link rel="icon" href="icone.jpg" type="image/jpeg">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            padding: 24px;
+            background: #eef2f7;
+            color: #172033;
+            font-family: 'Plus Jakarta Sans', Arial, sans-serif;
+        }
+
+        .print-controls,
+        .sheet {
+            width: min(100%, 900px);
+            margin: 0 auto 24px;
+        }
+
+        .print-controls {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            padding: 16px;
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 4px 16px rgba(15, 23, 42, 0.1);
+        }
+
+        .print-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 11px 18px;
+            border: 0;
+            border-radius: 8px;
+            background: #174a7e;
+            color: #fff;
+            font: 600 14px 'Plus Jakarta Sans', Arial, sans-serif;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .print-btn.secondary {
+            background: #475569;
+        }
+
+        .info-message {
+            width: min(100%, 900px);
+            margin: 0 auto 20px;
+            padding: 12px 16px;
+            border-left: 4px solid #174a7e;
+            border-radius: 6px;
+            background: #fff;
+            color: #334155;
+            font-size: 13px;
+            line-height: 1.5;
+        }
+
+        .sheet-title {
+            margin: 0 auto 12px;
+            color: #475569;
+            font-size: 14px;
+            font-weight: 700;
+        }
+
+        .cards-sheet {
+            display: grid;
+            grid-template-columns: repeat(2, 90mm);
+            justify-content: center;
+            gap: 4mm 6mm;
+            width: fit-content;
+            margin: 0 auto 32px;
+        }
+
+        .cards-sheet.back-sheet {
+            direction: rtl;
+        }
+
+        .business-card {
+            position: relative;
+            display: flex;
+            align-items: center;
+            width: 90mm;
+            height: 50mm;
+            padding: 4mm;
+            overflow: hidden;
+            border: 0.3mm solid #cbd5e1;
+            border-radius: 2mm;
+            background: #fff;
+            color: #172033;
+            font-family: 'Outfit', Arial, sans-serif;
+            direction: ltr;
+            -webkit-print-color-adjust: exact;
+            print-color-adjust: exact;
+        }
+
+        .business-card::before {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 2mm;
+            height: 100%;
+            background: #174a7e;
+            content: '';
+        }
+
+        .card-content {
+            display: flex;
+            flex: 1;
+            min-width: 0;
+            flex-direction: column;
+            justify-content: center;
+            gap: 1.2mm;
+            padding-left: 2mm;
+        }
+
+        .card-name {
+            color: #123b63;
+            font-size: 15pt;
+            font-weight: 800;
+            line-height: 1.05;
+        }
+
+        .card-title {
+            margin-bottom: 1.2mm;
+            color: #52657a;
+            font-size: 7pt;
+            font-weight: 600;
+            line-height: 1.2;
+        }
+
+        .card-contact {
+            display: grid;
+            gap: 1.5mm;
+        }
+
+        .card-contact-item {
+            display: flex;
+            min-width: 0;
+            align-items: flex-start;
+            gap: 2mm;
+            color: #172033;
+            font-size: 7pt;
+            line-height: 1.25;
+        }
+
+        .card-contact-item i {
+            width: 3mm;
+            flex: 0 0 3mm;
+            margin-top: 0.2mm;
+            color: #174a7e;
+            text-align: center;
+        }
+
+        .card-contact-item span {
+            min-width: 0;
+            overflow-wrap: anywhere;
+        }
+
+        .card-qr-group {
+            display: flex;
+            flex: 0 0 23mm;
+            flex-direction: column;
+            align-items: center;
+            gap: 1mm;
+            margin-left: 3mm;
+        }
+
+        .card-qr {
+            display: grid;
+            width: 21mm;
+            height: 21mm;
+            place-items: center;
+            padding: 1mm;
+            border: 0.3mm solid #dbe3ed;
+            border-radius: 1mm;
+            background: #fff;
+        }
+
+        .card-qr img,
+        .card-qr canvas {
+            display: block;
+            width: 100%;
+            height: 100%;
+        }
+
+        .card-qr-hint {
+            color: #52657a;
+            font-size: 5pt;
+            line-height: 1.1;
+            text-align: center;
+        }
+
+        .business-card.back {
+            justify-content: center;
+            flex-direction: column;
+            gap: 1mm;
+            background: #f8fafc;
+            text-align: center;
+        }
+
+        .ministry-logo {
+            display: block;
+            width: 25mm;
+            height: 25mm;
+            object-fit: contain;
+        }
+
+        .ministry-logo-fallback {
+            display: none;
+            color: #174a7e;
+            font-size: 18pt;
+            font-weight: 800;
+            letter-spacing: 1mm;
+        }
+
+        .business-card.back.logo-missing .ministry-logo-fallback {
+            display: block;
+        }
+
+        .ministry-name {
+            max-width: 72mm;
+            color: #34465c;
+            font-size: 6pt;
+            font-weight: 700;
+            letter-spacing: 0.2mm;
+            line-height: 1.3;
+            text-transform: uppercase;
+        }
+
+        .ministry-department {
+            color: #174a7e;
+            font-size: 7pt;
+            font-weight: 700;
+        }
+
+        .flag-stripe {
+            display: flex;
+            width: 26mm;
+            height: 1mm;
+            margin-top: 1mm;
+        }
+
+        .flag-stripe span {
+            flex: 1;
+        }
+
+        .flag-stripe span:nth-child(1) {
+            background: #e53935;
+        }
+
+        .flag-stripe span:nth-child(2) {
+            background: #fff;
+            border-top: 0.2mm solid #d7dee8;
+            border-bottom: 0.2mm solid #d7dee8;
+        }
+
+        .flag-stripe span:nth-child(3) {
+            background: #16834a;
+        }
+
+        .error-message {
+            display: none;
+            width: min(100%, 900px);
+            margin: 16px auto;
+            padding: 12px;
+            border: 1px solid #ef4444;
+            border-radius: 8px;
+            background: #fef2f2;
+            color: #991b1b;
+        }
+
+        .error-message.visible {
+            display: block;
+        }
+
+        @media print {
+            @page {
+                size: A4 portrait;
+                margin: 8mm;
+            }
+
+            body {
+                padding: 0;
+                background: #fff;
+            }
+
+            .print-controls,
+            .info-message,
+            .sheet-title,
+            .error-message {
+                display: none !important;
+            }
+
+            .sheet {
+                width: auto;
+                margin: 0;
+            }
+
+            .cards-sheet {
+                grid-template-columns: repeat(2, 90mm);
+                gap: 4mm 6mm;
+                margin: 0 auto;
+                break-after: page;
+                page-break-after: always;
+            }
+
+            .cards-sheet.back-sheet {
+                direction: rtl;
+            }
+
+            .sheet:last-child .cards-sheet {
+                break-after: auto;
+                page-break-after: auto;
+            }
+
+            .business-card {
+                box-shadow: none;
+                break-inside: avoid;
+                page-break-inside: avoid;
+            }
+        }
+
+        @media screen and (max-width: 700px) {
+            body {
+                padding: 12px;
+            }
+
+            .cards-sheet {
+                grid-template-columns: minmax(0, 90mm);
+            }
+
+            .print-controls {
+                align-items: stretch;
+                flex-direction: column;
+            }
+
+            .print-btn {
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="print-controls">
+        <a class="print-btn secondary" href="./">
+            <i class="fas fa-arrow-left" aria-hidden="true"></i>
+            Retour au site
+        </a>
+        <button class="print-btn" type="button" id="printButton">
+            <i class="fas fa-print" aria-hidden="true"></i>
+            Imprimer recto-verso
+        </button>
+        <button class="print-btn secondary" type="button" id="pdfButton">
+            <i class="fas fa-file-pdf" aria-hidden="true"></i>
+            Télécharger PDF
+        </button>
+    </div>
+
+    <p class="info-message">
+        Le recto contient vos coordonnées et un QR code vers le site. Le verso porte le logo du ministère.
+        Imprimez les deux pages en recto-verso, en retournant sur le bord long.
+    </p>
+    <p id="errorMessage" class="error-message" role="alert"></p>
+
+    <main id="cardSheets">
+        <section class="sheet" aria-label="Recto des cartes">
+            <h2 class="sheet-title">Recto — coordonnées</h2>
+            <div id="frontSheet" class="cards-sheet"></div>
+        </section>
+        <section class="sheet" aria-label="Verso des cartes">
+            <h2 class="sheet-title">Verso — identité du ministère</h2>
+            <div id="backSheet" class="cards-sheet back-sheet"></div>
+        </section>
+    </main>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <script src="contact-profile.js?v=1"></script>
+    <script>
+        const profile = window.TODISOA_CONTACT_PROFILE;
+        const errorMessage = document.getElementById('errorMessage');
+        const contactUrl = new URL('./', window.location.href).href;
+
+        function showError(message) {
+            errorMessage.textContent = message;
+            errorMessage.classList.add('visible');
+        }
+
+        function createFrontCard(index) {
+            const card = document.createElement('article');
+            card.className = 'business-card front';
+            card.innerHTML = `
+                <div class="card-content">
+                    <div class="card-name"></div>
+                    <div class="card-title"></div>
+                    <div class="card-contact">
+                        <div class="card-contact-item">
+                            <i class="fas fa-phone" aria-hidden="true"></i>
+                            <span></span>
+                        </div>
+                        <div class="card-contact-item">
+                            <i class="fas fa-envelope" aria-hidden="true"></i>
+                            <span></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-qr-group">
+                    <div class="card-qr" id="qr-${index}" role="img" aria-label="QR code vers le site complet"></div>
+                    <span class="card-qr-hint">Scannez pour en savoir plus</span>
+                </div>
+            `;
+            card.querySelector('.card-name').textContent = profile.name;
+            const language = localStorage.getItem('todisoa_lang') === 'mg' ? 'mg' : 'fr';
+            card.querySelector('.card-title').textContent = `${profile.role[language] || profile.role.fr} • ${profile.department}`;
+            const details = card.querySelectorAll('.card-contact-item span');
+            details[0].textContent = profile.phone;
+            details[1].textContent = profile.email;
+            details[1].setAttribute('lang', 'fr');
+
+            if (typeof QRCode !== 'function') {
+                throw new Error('Le QR code n’a pas pu être créé : la bibliothèque QR Code est indisponible.');
+            }
+            new QRCode(card.querySelector(`#qr-${index}`), {
+                text: contactUrl,
+                width: 200,
+                height: 200,
+                colorDark: '#0f172a',
+                colorLight: '#ffffff',
+                correctLevel: QRCode.CorrectLevel.H
+            });
+            return card;
+        }
+
+        function createBackCard() {
+            const card = document.createElement('article');
+            card.className = 'business-card back';
+            card.innerHTML = `
+                <img class="ministry-logo" src="Copilot_20260427_132800.png" alt="Logo du ministère de l’Intérieur et de la Décentralisation">
+                <span class="ministry-logo-fallback" aria-hidden="true">MID</span>
+                <span class="ministry-name"></span>
+                <span class="ministry-department"></span>
+                <span class="flag-stripe" aria-hidden="true"><span></span><span></span><span></span></span>
+            `;
+            card.querySelector('.ministry-name').textContent = profile.institutionName;
+            card.querySelector('.ministry-department').textContent = `${profile.institutionShort} • ${profile.department}`;
+            const logo = card.querySelector('.ministry-logo');
+            logo.addEventListener('error', () => card.classList.add('logo-missing'), { once: true });
+            return card;
+        }
+
+        function generateBusinessCards() {
+            if (!profile) {
+                throw new Error('Les coordonnées du profil sont indisponibles.');
+            }
+            const frontSheet = document.getElementById('frontSheet');
+            const backSheet = document.getElementById('backSheet');
+            for (let index = 0; index < 10; index += 1) {
+                frontSheet.appendChild(createFrontCard(index));
+                backSheet.appendChild(createBackCard());
+            }
+        }
+
+        document.getElementById('printButton').addEventListener('click', () => window.print());
+        document.getElementById('pdfButton').addEventListener('click', () => {
+            if (typeof html2pdf !== 'function') {
+                showError('Le téléchargement PDF est indisponible : la bibliothèque PDF n’a pas pu être chargée.');
+                return;
+            }
+            html2pdf().from(document.getElementById('cardSheets')).set({
+                margin: 8,
+                filename: 'Todisoa_Carte_Visite_Recto_Verso.pdf',
+                image: { type: 'jpeg', quality: 0.98 },
+                html2canvas: { scale: 2, useCORS: true, backgroundColor: '#ffffff' },
+                jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
+                pagebreak: { mode: ['css', 'legacy'] }
+            }).save();
+        });
+
+        try {
+            generateBusinessCards();
+        } catch (error) {
+            console.error('Erreur lors de la génération des cartes :', error);
+            showError(error.message);
+        }
+    </script>
+</body>
+</html>

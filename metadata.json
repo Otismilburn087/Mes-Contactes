@@ -1,0 +1,6 @@
+{
+  "name": "Todisoa Stagiaire MID (DSID)",
+  "description": "Page de contact interactive pour Todisoa Stagiaire MID (DSID)",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
